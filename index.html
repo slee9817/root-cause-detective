@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Root Cause Detective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Root Cause Detective</h1>
+    <p class="sub">Something got out the door. Find out why, and don't blame the operator.</p>
+  </header>
+
+  <!-- Screen 0: pick a case -->
+  <section id="selectScreen" class="screen">
+    <div class="case-select">
+      <h2 class="select-title">Open case files</h2>
+      <div id="caseList" class="case-list"></div>
+    </div>
+  </section>
+
+  <!-- Screen 1: the briefing -->
+  <section id="briefingScreen" class="screen hidden">
+    <div class="case-file">
+      <div class="stamp">CASE FILE</div>
+      <h2 id="caseTitle"></h2>
+      <div id="caseBriefing"></div>
+      <button id="beginBtn" class="primary">Start investigating →</button>
+      <button id="toFilesBtn" class="paper-link">← All case files</button>
+    </div>
+  </section>
+
+  <!-- Screen 2: the investigation -->
+  <section id="investigationScreen" class="screen hidden">
+    <div class="board">
+      <!-- Left: where you can go -->
+      <nav class="panel locations">
+        <h3>Locations</h3>
+        <ul id="locationList"></ul>
+      </nav>
+
+      <!-- Middle: the current location -->
+      <main class="panel scene">
+        <!-- The investigation clock -->
+        <div id="clock" class="clock">
+          <span>🕒 <b id="clockTime">7:00 AM</b></span>
+          <div class="clock-bar"><div id="clockFill" class="clock-fill"></div></div>
+          <span id="clockLeft" class="clock-left"></span>
+        </div>
+
+        <h2 id="sceneTitle"></h2>
+        <p id="sceneDescription" class="scene-desc"></p>
+        <div id="actionList" class="actions"></div>
+        <div id="result" class="result hidden"></div>
+      </main>
+
+      <!-- Right: everything you've learned -->
+      <aside class="panel notebook">
+        <h3>Notebook <span id="clueCount" class="count">0</span></h3>
+        <ul id="clueList"></ul>
+        <p id="emptyNotebook" class="empty">Clues you find will be written down here.</p>
+        <button id="closeCaseBtn" class="primary close-case">📁 Close the case</button>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Screen 3: the accusation -->
+  <section id="accuseScreen" class="screen hidden">
+    <div class="accuse">
+      <button id="backBtn" class="link-btn">← Back to investigating</button>
+      <h2 class="accuse-title">Close the case</h2>
+
+      <!-- Step 1: the fishbone -->
+      <div class="step">
+        <h3><span class="step-num">1</span> Sort your clues onto the fishbone</h3>
+        <p class="hint">Which category does each clue belong to? Clues that only describe the problem go under "Symptom".</p>
+        <div class="fishbone-wrap">
+          <ul id="sortList" class="sort-list"></ul>
+          <div id="fishbone" class="fishbone"></div>
+        </div>
+      </div>
+
+      <!-- Step 2: the occurrence root cause -->
+      <div class="step">
+        <h3><span class="step-num">2</span> Why did it happen? <small>(occurrence root cause)</small></h3>
+        <div id="occurrenceOptions" class="options"></div>
+        <p class="hint">Cite the clues that prove it:</p>
+        <div id="occurrenceEvidence" class="evidence"></div>
+      </div>
+
+      <!-- Step 3: the escape point -->
+      <div class="step">
+        <h3><span class="step-num">3</span> Why didn't we catch it? <small>(escape point)</small></h3>
+        <div id="escapeOptions" class="options"></div>
+        <p class="hint">Cite the clues that prove it:</p>
+        <div id="escapeEvidence" class="evidence"></div>
+      </div>
+
+      <p id="accuseError" class="accuse-error hidden"></p>
+      <button id="fileBtn" class="primary file-btn">File the report</button>
+    </div>
+  </section>
+
+  <!-- Screen 4: the verdict -->
+  <section id="verdictScreen" class="screen hidden">
+    <div class="case-file verdict">
+      <div id="verdictGrade" class="grade-stamp">A</div>
+      <h2>Verdict</h2>
+      <p id="verdictScore" class="verdict-score"></p>
+      <div id="verdictBody"></div>
+      <div class="verdict-buttons">
+        <button id="replayBtn" class="primary">↻ Play this case again</button>
+        <button id="caseFilesBtn">📂 Back to case files</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="cases.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
